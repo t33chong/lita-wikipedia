@@ -1,3 +1,5 @@
+require "wikipedia-client"
+
 module Lita
   module Handlers
     class Wikipedia < Handler
@@ -5,6 +7,9 @@ module Lita
         t("help.wikipedia_key") => t("help.wikipedia_value")})
 
       def wikipedia(response)
+        page = Wikipedia.find(response.matches.first)
+        response.reply(page.text.split("\n").first)
+        response.reply(page.fullurl)
       end
     end
 
