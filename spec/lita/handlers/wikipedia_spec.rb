@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Lita::Handlers::Wikipedia, lita_handler: true do
-  it { routes_command("wikipedia").to(:query_wikipedia) }
-  it { routes_command("wiki").to(:query_wikipedia) }
+  it { routes_command("wikipedia ruby language").to(:wikipedia) }
+  it { routes_command("wiki ruby language").to(:wikipedia) }
 
   describe "#query_wikipedia" do
     it "returns the 1st paragraph & link to the Wikipedia entry for a query" do
