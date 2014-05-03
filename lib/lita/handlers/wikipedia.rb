@@ -1,4 +1,4 @@
-require "wikipedia-client"
+require "wikipedia"
 
 Wiki = Wikipedia
 Wikipedia = nil
