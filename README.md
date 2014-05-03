@@ -1,6 +1,6 @@
 # lita-wikipedia
 
-TODO: Add a description of the plugin.
+**lita-wikipedia** is a handler for [Lita](https://github.com/jimmycuadra/lita) that returns a requested Wikipedia article.
 
 ## Installation
 
@@ -10,13 +10,14 @@ Add lita-wikipedia to your Lita instance's Gemfile:
 gem "lita-wikipedia"
 ```
 
-## Configuration
-
-TODO: Describe any configuration attributes the plugin exposes.
-
 ## Usage
 
-TODO: Describe the plugin's features and how to use them.
+To request a Wikipedia article:
+
+```
+Lita: wiki ruby language
+Ruby is a dynamic, reflective, object-oriented, general-purpose programming language. It was designed and developed in the mid-1990s by Yukihiro "Matz" Matsumoto in Japan.
+```
 
 ## License
 
