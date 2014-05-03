@@ -1,7 +1,6 @@
 require "wikipedia"
 
-Wiki = Wikipedia
-Wikipedia = nil
+WikiClient = Wikipedia
 
 module Lita
   module Handlers
@@ -10,7 +9,7 @@ module Lita
             help: { t("help.wikipedia_key") => t("help.wikipedia_value")})
 
       def wikipedia(response)
-        page = Wiki.find(response.matches.first)
+        page = WikiClient.find(response.matches.first)
         response.reply(page.text.split("\n").first)
         response.reply(page.fullurl)
       end
