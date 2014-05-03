@@ -2,3 +2,6 @@ en:
   lita:
     handlers:
       wikipedia:
+        help:
+          wikipedia_key: "wiki TERM"
+          wikipedia_value: "Look up the Wikipedia entry for TERM."
