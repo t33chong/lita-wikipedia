@@ -30,7 +30,7 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
         "http://en.wikipedia.org/wiki/The_Twelfth_Man",
         "http://en.wikipedia.org/wiki/The_12th_Man_(album)",
         "http://en.wikipedia.org/wiki/12th_man_(football)",
-        "http://en.wikipedia.org/wiki/Glossary_of_cricket_terms#T"
+        "http://en.wikipedia.org/wiki/Glossary_of_cricket_terms"
       ]
       expect(urls).to include(url)
     end
