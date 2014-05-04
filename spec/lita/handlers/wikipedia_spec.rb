@@ -10,5 +10,16 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
       expect(replies[0]).to match 'Ruby is a dynamic, reflective, object-oriented, general-purpose programming language. It was designed and developed in the mid-1990s by Yukihiro "Matz" Matsumoto in Japan.'
       expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Ruby_(programming_language)'
     end
+
+    it "returns a random matching article when disambiguation occurs" do
+      send_command "wiki 12th man"
+      responses = [
+        "Source: http://en.wikipedia.org/wiki/The_Twelfth_Man",
+        "Source: http://en.wikipedia.org/wiki/The_12th_Man_(album)",
+        "Source: http://en.wikipedia.org/wiki/12th_man_(football)",
+        "Source: http://en.wikipedia.org/wiki/Glossary_of_cricket_terms#T"
+      ]
+      expect(responses).to include(replies[1])
+    end
   end
 end
