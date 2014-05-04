@@ -6,16 +6,21 @@ def disambiguate(term)
   url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links&format=json&exintro=&explaintext=&inprop=url&titles=#{CGI.escape(term)}&redirects="
   result = JSON.parse(open(URI.parse(URI.encode(url.strip))).read)
   page = result['query']['pages'].first[1]
+  puts page['extract'].class  #debug
   extract = page['extract'].split("\n").first
   if /(?:may|can) refer to/.match(extract) != nil
     links = page['links'].map {
       |x| x['title'] if not x['title'].downcase.include? 'disambiguation'}
     links = links.select {|x| x != nil}
-    return disambiguate(links.sample)
+    link = links.sample
+    puts "link: #{link}"
+    return disambiguate(link)
   end
   url = page['fullurl']
   [extract, url]
 end
+
+puts disambiguate('12th man')
 
 module Lita
   module Handlers
