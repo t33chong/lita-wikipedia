@@ -7,7 +7,7 @@ def disambiguate(term)
   result = JSON.parse(open(URI.parse(URI.encode(url.strip))).read)
   page = result['query']['pages'].first[1]
   extract = page['extract'].split("\n").first
-  if extract.include? 'may refer to'
+  if /(?:may|can) refer to/.match(extract) != nil
     links = page['links'].map {
       |x| x['title'] if not x['title'].downcase.include? 'disambiguation'}
     links = links.select {|x| x != nil}
