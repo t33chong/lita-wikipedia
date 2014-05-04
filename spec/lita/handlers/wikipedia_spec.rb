@@ -17,7 +17,7 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
         "Source: http://en.wikipedia.org/wiki/The_Twelfth_Man",
         "Source: http://en.wikipedia.org/wiki/The_12th_Man_(album)",
         "Source: http://en.wikipedia.org/wiki/12th_man_(football)",
-        "Source: http://en.wikipedia.org/wiki/Glossary_of_cricket_terms#T"
+        "Source: http://en.wikipedia.org/wiki/Glossary_of_cricket_terms"
       ]
       expect(responses).to include(replies[1])
     end
