@@ -1,29 +1,20 @@
-require "cgi"
 require "json"
 require "open-uri"
 
 def disambiguate(term)
-  #url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{URI.escape(term)}&redirects="
   url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{term}&redirects="
   result = JSON.parse(open(URI.parse(URI.encode(url.strip))).read)
   page = result['query']['pages'].first[1]
-  puts "PAGE: #{page}"
-  puts "EXTRACT FOR #{term}: #{page['extract']}"
   extract = page['extract'].split("\n").first
   if page.fetch('pageprops', {}).has_key? 'disambiguation'
     links = page['links'].map {
       |x| x['title'] if not x['title'].downcase.include? 'disambiguation'}
     links = links.select {|x| x != nil}
-    puts "LINKS: #{links}"
-    link = links.sample
-    puts "LINK: #{link}"
-    return disambiguate(link)
+    return disambiguate(links.sample)
   end
   url = page['fullurl']
   [extract, url]
 end
-
-puts "RETURN: #{disambiguate('12th man')}"
 
 module Lita
   module Handlers
