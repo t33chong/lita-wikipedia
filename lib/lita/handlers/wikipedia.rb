@@ -5,6 +5,9 @@ def disambiguate(term)
   url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{term}&redirects="
   result = JSON.parse(open(URI.parse(URI.encode(url.strip))).read)
   page = result['query']['pages'].first[1]
+  if not page.has_key? 'content'
+    return ["No Wikipedia entry found for '#{term}'.", nil]
+  end
   extract = page['extract'].split("\n").first
   if page.fetch('pageprops', {}).has_key? 'disambiguation'
     links = page['links'].map {
@@ -25,7 +28,9 @@ module Lita
       def wikipedia(response)
         extract, url = disambiguate(response.matches.first.first)
         response.reply(extract)
-        response.reply("Source: #{url}")
+        if url != nil
+          response.reply("Source: #{url}")
+        end
       end
     end
 
