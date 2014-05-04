@@ -11,7 +11,7 @@ module Lita
       def wikipedia(response)
         page = WikiClient.find(response.matches.first)
         response.reply(page.text.split("\n").first)
-        response.reply(page.fullurl)
+        response.reply("Source: #{page.fullurl}")
       end
     end
 
