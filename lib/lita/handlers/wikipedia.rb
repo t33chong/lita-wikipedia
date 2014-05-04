@@ -3,7 +3,8 @@ require "json"
 require "open-uri"
 
 def disambiguate(term)
-  url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{CGI.escape(term)}&redirects="
+  #url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{URI.escape(term)}&redirects="
+  url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info|links|pageprops&format=json&exintro=&explaintext=&inprop=url&ppprop=disambiguation&titles=#{term}&redirects="
   result = JSON.parse(open(URI.parse(URI.encode(url.strip))).read)
   page = result['query']['pages'].first[1]
   puts "PAGE: #{page}"
