@@ -27,17 +27,4 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
       expect(replies.first).to match "No Wikipedia entry found for 'asdfasdfa'."
     end
   end
-
-  describe "#disambiguate" do
-    it "resolves disambiguation by returning a random matching article" do
-      extract, url = disambiguate('12th man')
-      urls = [
-        "http://en.wikipedia.org/wiki/The_Twelfth_Man",
-        "http://en.wikipedia.org/wiki/The_12th_Man_(album)",
-        "http://en.wikipedia.org/wiki/12th_man_(football)",
-        "http://en.wikipedia.org/wiki/Glossary_of_cricket_terms"
-      ]
-      expect(urls).to include(url)
-    end
-  end
 end
