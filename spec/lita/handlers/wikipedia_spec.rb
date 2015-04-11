@@ -24,7 +24,7 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
 
     it "returns an error message if no article is found" do
       send_command "wiki asdfasdfa"
-      expect(replies.first).to match "No Wikipedia entry found for 'asdfasdfa'."
+      expect(replies.first).to match "No Wikipedia entry found for 'asdfasdfa'"
     end
   end
 end
