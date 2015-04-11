@@ -16,8 +16,9 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
       expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Indio,_California'
     end
 
-    it "handles lowercase queries correctly" do
+    it "handles lowercase queries and articles with templates correctly" do
       send_command "wiki gabriola island"
+      expect(replies[0]).to match 'Gabriola Island is one of the Gulf Islands in the Strait of Georgia, in British Columbia (BC), Canada. Gabriola lies about 5 kilometres (3.1 mi) east of Nanaimo on Vancouver Island, to which it is linked by a 20-minute ferry trip from Nanaimo harbour. It has a land area of about 57.6 square kilometres (22.2 sq mi) and a resident population of slightly more than 4,000.'
       expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Gabriola_Island'
     end
 
