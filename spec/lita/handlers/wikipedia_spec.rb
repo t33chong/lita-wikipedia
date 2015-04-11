@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe Lita::Handlers::Wikipedia, lita_handler: true do
-  it { routes_command("wikipedia ruby language").to(:wikipedia) }
-  it { routes_command("wiki ruby language").to(:wikipedia) }
+  it { is_expected.to route_command("wikipedia ruby language").to(:wikipedia) }
+  it { is_expected.to route_command("wiki ruby language").to(:wikipedia) }
 
   describe "#wikipedia" do
     it "returns the 1st paragraph & link to the Wikipedia entry for a query" do
@@ -11,15 +11,15 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
       expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Ruby_(programming_language)'
     end
 
-    it "responds with a random matching article when disambiguation occurs" do
+    it "handles commas in queries correctly" do
+      send_command "wikipedia indio, ca"
+      expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Indio,_California'
+    end
+
+    it "responds with the disambiguation page on appropriate queries" do
       send_command "wiki 12th man"
-      responses = [
-        "Source: http://en.wikipedia.org/wiki/The_Twelfth_Man",
-        "Source: http://en.wikipedia.org/wiki/The_12th_Man_(album)",
-        "Source: http://en.wikipedia.org/wiki/12th_man_(football)",
-        "Source: http://en.wikipedia.org/wiki/Glossary_of_cricket_terms"
-      ]
-      expect(responses).to include(replies[1])
+      expect(replies[0]).to match 'The phrase 12th Man or Twelfth Man can refer to:'
+      expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/12th_Man'
     end
 
     it "returns an error message if no article is found" do
