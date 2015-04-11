@@ -1,5 +1,7 @@
 require "json"
+require "nokogiri"
 require "open-uri"
+require "sanitize"
 
 module Lita
   module Handlers
@@ -15,10 +17,11 @@ module Lita
         if titles.empty?
           response.reply("No Wikipedia entry found for '#{term}'")
         else
-          query_url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&format=json&exintro=&explaintext=&inprop=url&titles=#{titles.first}&redirects="
+          query_url = "http://en.wikipedia.org/w/api.php?action=query&prop=extracts|info&format=json&exintro=&inprop=url&titles=#{titles.first}&redirects="
           query_result = JSON.parse(open(URI.parse(URI.encode(query_url.strip))).read)
           page = query_result['query']['pages'].first[1]
-          extract = page['extract'].split("\n").first
+          html = Nokogiri::HTML(page['extract'])
+          extract = Sanitize.fragment(html.xpath('//p[1]').first).strip
           url = page['fullurl']
           response.reply(extract)
           response.reply("Source: #{url}")
