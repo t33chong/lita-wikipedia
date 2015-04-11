@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-wikipedia"
-  spec.version       = "0.0.3"
+  spec.version       = "0.0.4"
   spec.authors       = ["Tristan Chong"]
   spec.email         = ["ong@tristaneuan.ch"]
   spec.description   = %q{A Lita handler that returns a requested Wikipedia article.}
