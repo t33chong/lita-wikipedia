@@ -12,8 +12,13 @@ describe Lita::Handlers::Wikipedia, lita_handler: true do
     end
 
     it "handles commas in queries correctly" do
-      send_command "wikipedia indio, ca"
+      send_command "wiki indio, ca"
       expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Indio,_California'
+    end
+
+    it "handles lowercase queries correctly" do
+      send_command "wiki gabriola island"
+      expect(replies[1]).to match 'Source: http://en.wikipedia.org/wiki/Gabriola_Island'
     end
 
     it "responds with the disambiguation page on appropriate queries" do
